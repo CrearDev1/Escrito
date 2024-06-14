@@ -25,22 +25,70 @@ function mostrarProductos($productos) {
     $result = '';
     foreach ($productos as $producto) {
         $result .= "Nombre: " . $producto['nombre'] . ", Modelo: " . $producto['modelo'] . "<br>";
-        
+
    
     }
     return $result;
 }
 
-function actualizarProducto($productos, $nombre, $modelo, $valor) {
+function actualizarProducto($productos, $nombre,$cantidad, $modelo, $valor) {
     foreach ($productos as &$producto) {
         if ($producto['nombre'] == $nombre) {
             $producto['modelo'] = $modelo;
             $producto['valor'] = $valor;
+            $producto['cantidad'] = $cantidad;
             break;
         }
     }
     return $productos;
 }
+
+function calcularValorTotal($productos) {
+    $result = '';
+    foreach ($productos as $producto) {
+        $result .= $producto['valor'];
+        
+    }
+    return echo "Valor total del inventario ".$result;
+}
+
+function buscarProductoPorValor($productos, $valor) {
+    foreach ($productos as $producto) {
+        if ($producto['valor'] >= $valor) {
+            return "Nombre: " . $producto['nombre'] . "<br>";
+        }
+    }
+    return "Producto no encontrado.<br>";
+}
+
+function mostrarModelosDisponibles($productos) {
+    foreach ($productos as $producto) {
+        if ($producto['cantidad'] > 0) {
+            return "Nombre: " . $producto['nombre'] . "<br>";
+        }
+    }
+    return "No hay productos disponibles.<br>";
+}
+
+function calcularValorPromedio($productos) {
+    $result = '';
+    foreach ($productos as $producto) {
+        $result .= $producto['valor'];
+        
+    }
+    return echo "Valor total del inventario ".($result/count($productos));
+}
+
+function limpiarResultados($productos, ) {
+    $productos[] = [
+        'nombre' => "",
+        'cantidad' => "",
+        'valor' => "",
+        'modelo' => ""
+    ];
+    return $productos;
+}
+
 
 // Inicializar el array de productos en la sesión
 if (!isset($_SESSION['productos'])) {
