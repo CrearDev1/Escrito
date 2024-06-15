@@ -20,11 +20,14 @@ if (isset($_SESSION['resultado'])) {
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre"><br>
         
-        <label for="edad">Edad:</label>
-        <input type="number" id="edad" name="edad"><br>
+        <label for="cantidad">Cantidad:</label>
+        <input type="number" id="cantidad" name="cantidad"><br>
         
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email"><br>
+        <label for="valor">Valor:</label>
+        <input type="valor" id="valor" name="valor"><br>
+        
+        <label for="modelo">Modelo:</label>
+        <input type="modelo" id="modelo" name="modelo"><br>
         
         <input type="radio" id="agregar" name="accion" value="agregar">
         <label for="agregar">Agregar</label><br>

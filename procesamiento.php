@@ -18,7 +18,7 @@ agregarProducto($productos,"Mate",2,200,"Coquito");
 agregarProducto($productos,"Matera",20,2000,"Black");
 
 //Prueba mostrar productos
-mostrarProductos($productos);
+echo mostrarProductos($productos);
 
 //Prueba actualizar productos
 actualizarProducto($productos,"Mate",4,100,"Coquito");
@@ -42,7 +42,6 @@ echo calcularValorPromedio($productos);
 
 //Prueba limpiar resultados
 limpiarResultados($productos);
-
 function buscarProductoPorModelo($productos, $modelo) {
     foreach ($productos as $producto) {
         if ($producto['modelo'] == $modelo) {
@@ -60,7 +59,7 @@ function mostrarProductos($productos) {
     foreach ($productos as $producto) {
         $result .= "Nombre: " . $producto['nombre'] . ", Modelo: " . $producto['modelo'] . "<br>";
     }
-     echo $result;
+    return $result;
 }
 
 function actualizarProducto(&$productos, $nombre,$cantidad, $valor, $modelo) {
@@ -121,15 +120,11 @@ function calcularValorPromedio($productos) {
     return  "Valor total del inventario: $".($result/count($productos));
 }
 
-function limpiarResultados($productos) {
-    $productos[] = [
-        'nombre' => "",
-        'cantidad' => "",
-        'valor' => "",
-        'modelo' => ""
-    ];
+function limpiarResultados(&$productos) {
+    $productos = [];
     return $productos;
 }
+
 
 
 // Inicializar el array de productos en la sesión
@@ -148,7 +143,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     switch ($accion) {
         case 'agregar':
-            $productos = agregarProducto($productos, $nombre, $valor, $cantidad);
+            $productos = agregarProducto($productos, $nombre, $valor, $cantidad, $modelo);
             $resultado = "Producto agregado correctamente.<br>";
             break;
         
@@ -161,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             break;
         
         case 'actualizar':
-            $productos = actualizarProducto($productos, $cantidad, $nombre, $valor);
+            $productos = actualizarProducto($productos, $cantidad, $nombre, $valor, $modelo);
             $resultado = "Producto actualizado correctamente.<br>";
             break;
 
@@ -180,6 +175,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Redirigir de vuelta a index.php
-//header("Location: formulario.php");
+header("Location: formulario.php");
 exit();
 ?>
